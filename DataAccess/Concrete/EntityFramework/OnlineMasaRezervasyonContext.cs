@@ -18,5 +18,6 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Departman> Departmanlar { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<Masa> Masalar { get; set; }
+        public DbSet<Ofis> Ofisler { get; set; }
     }
 }

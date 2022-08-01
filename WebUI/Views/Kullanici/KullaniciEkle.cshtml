@@ -2,6 +2,8 @@
     Layout = null;
 }
 
+@model Entity.Concrete.Kullanici
+
 <!DOCTYPE html>
 
 <html>
@@ -27,21 +29,36 @@
         </div>
     </nav>
     <div class="container">
-
-        <div class="row justify-content-center mt-5">
-            <div class="col-6 mt-6">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                </div>
-            </div>
-        </div>
         <div class="row justify-content-center">
             <div class="col-6">
-                <a href="@Url.Action("Index","Anasayfa")" class="btn btn-primary">Giriş Yap</a>
+                @using (Html.BeginForm("KullaniciEkle", "Kullanici", FormMethod.Post))
+                {
+                    @Html.Label("Ad")
+                    @Html.TextBoxFor(x => x.Ad, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Soyad")
+                    @Html.TextBoxFor(x => x.Soyad, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Eposta")
+                    @Html.TextBoxFor(x => x.Eposta, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Gsm")
+                    @Html.TextBoxFor(x => x.Gsm, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Görev")
+                    @Html.TextBoxFor(x => x.Gorev, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Departman")
+                    @await Component.InvokeAsync("DepartmanList")
+
+                    <button class="btn btn-success">Güncelle</button>
+                }
             </div>
+
         </div>
+
+
+
     </div>
 </body>
 </html>
-

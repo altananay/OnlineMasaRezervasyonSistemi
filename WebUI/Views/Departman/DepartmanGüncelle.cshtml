@@ -1,0 +1,15 @@
+﻿@model Entity.Concrete.Departman
+
+@{
+    ViewData["Title"] = "DepartmanGüncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("DepartmanGüncelle", "Departman", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.DepartmanId)
+    @Html.Label("Departman Adı")
+    @Html.TextBoxFor(x => x.DepartmanAdi, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-success">Güncelle</button>
+}

@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entity.Concrete;
+using Entity.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,11 @@ namespace Business.Concrete
         public Masa GetById(int id)
         {
             return _masaDal.Get(m => m.MasaId == id);
+        }
+
+        public List<MasaDTO> GetMasaDto()
+        {
+            return _masaDal.GetMasaDto();
         }
 
         public void Update(Masa entity)

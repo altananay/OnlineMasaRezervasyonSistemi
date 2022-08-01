@@ -1,0 +1,41 @@
+﻿@model Entity.Concrete.Masa
+
+@{
+    ViewData["Title"] = "MasaGüncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            @using (Html.BeginForm("MasaGüncelle", "Masa", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.MasaId)
+                @Html.Label("Ofis Adı")
+                @await Component.InvokeAsync("OfisList")
+                <br />
+                @Html.Label("Masa Adi")
+                @Html.TextBoxFor(x => x.MasaAdi, new { @class = "form-control" })
+                <br />
+                @Html.Label("Masa Kodu")
+                @Html.TextBoxFor(x => x.MasaKodu, new { @class = "form-control" })
+                <br />
+                @Html.Label("Aktif")
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value=true id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault" style="margin-right: 30px">
+                        Aktif
+                    </label>
+                    <input class="form-check-input" type="checkbox" value=false id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Aktif Değil
+                    </label>
+                </div>
+                @Html.Label("Katılımcı Sayısı")
+                @Html.TextBoxFor(x => x.KatilimciSayisi, new { @class = "form-control" })
+                <br />
+                <button class="btn btn-info">Ekle</button>
+            }
+        </div>
+    </div>
+</div>

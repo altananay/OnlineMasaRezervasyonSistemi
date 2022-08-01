@@ -15,9 +15,9 @@ namespace WebUI.Controllers
             return View(values);
         }
 
-        public IActionResult DepartmanSil(int departmanId)
+        public IActionResult DepartmanSil(int id)
         {
-            var values = departmanManager.GetById(departmanId);
+            var values = departmanManager.GetById(id);
             departmanManager.Delete(values);
             return RedirectToAction("Index");
         }
@@ -32,6 +32,19 @@ namespace WebUI.Controllers
         public IActionResult DepartmanEkle(Departman departman)
         {
             departmanManager.Add(departman);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DepartmanGüncelle(int id)
+        {
+            var values = departmanManager.GetById(id);
+            return View(values);
+        }
+
+        [HttpPost]
+        public IActionResult DepartmanGüncelle(Departman departman)
+        {
+            departmanManager.Update(departman);
             return RedirectToAction("Index");
         }
     }
