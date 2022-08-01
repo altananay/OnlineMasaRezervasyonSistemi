@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entity.Concrete;
+using Entity.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,11 @@ namespace Business.Concrete
         public Kullanici GetById(int id)
         {
             return _kullaniciDal.Get(k => k.KullaniciId == id);
+        }
+
+        public List<KullaniciDTO> GetKullaniciDto()
+        {
+            return _kullaniciDal.GetKullaniciDto();
         }
 
         public void Update(Kullanici entity)

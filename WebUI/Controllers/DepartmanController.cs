@@ -35,14 +35,14 @@ namespace WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult DepartmanGüncelle(int id)
+        public IActionResult DepartmanGuncelle(int id)
         {
             var values = departmanManager.GetById(id);
             return View(values);
         }
 
         [HttpPost]
-        public IActionResult DepartmanGüncelle(Departman departman)
+        public IActionResult DepartmanGuncelle(Departman departman)
         {
             departmanManager.Update(departman);
             return RedirectToAction("Index");

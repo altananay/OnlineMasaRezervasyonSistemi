@@ -1,0 +1,37 @@
+﻿@model Entity.Concrete.Kullanici
+
+@{
+    ViewData["Title"] = "KullaniciGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            @using (Html.BeginForm("KullaniciGuncelle", "KullaniciAdmin", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.KullaniciId)
+                @Html.Label("Ad")
+                @Html.TextBoxFor(x => x.Ad, new { @class = "form-control" })
+                <br />
+                @Html.Label("Soyad")
+                @Html.TextBoxFor(x => x.Soyad, new { @class = "form-control" })
+                <br />
+                @Html.Label("Eposta")
+                @Html.TextBoxFor(x => x.Eposta, new { @class = "form-control" })
+                <br />
+                @Html.Label("Gsm")
+                @Html.TextBoxFor(x => x.Gsm, new { @class = "form-control" })
+                <br />
+                @Html.Label("Gorev")
+                @Html.TextBoxFor(x => x.Gorev, new { @class = "form-control" })
+                <br />
+                @Html.Label("Departman")
+                <br />
+                @await Component.InvokeAsync("DepartmanList")
+                <br />
+                <button class="btn btn-info mt-4">Güncelle</button>
+            }
+        </div>
+    </div>
+</div>
