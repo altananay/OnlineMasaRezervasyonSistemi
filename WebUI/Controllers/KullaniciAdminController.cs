@@ -37,6 +37,7 @@ namespace WebUI.Controllers
             ValidationResult validationResult = kullaniciValidator.Validate(kullanici);
             if (validationResult.IsValid)
             {
+                kullanici.YetkiId = kullanici.YetkiId;
                 kullaniciManager.Add(kullanici);
                 return RedirectToAction("Index");
             }
@@ -62,6 +63,7 @@ namespace WebUI.Controllers
             ValidationResult validationResult = kullaniciValidator.Validate(kullanici);
             if (validationResult.IsValid)
             {
+                kullanici.YetkiId = 2;
                 kullaniciManager.Update(kullanici);
                 return RedirectToAction("Index");
             }
@@ -73,6 +75,12 @@ namespace WebUI.Controllers
                 }
             }
             return View();
+        }
+
+        public IActionResult AktifOlmayanKullanicilar()
+        {
+            var values = kullaniciManager.GetAllByInactive();
+            return View(values);
         }
     }
 }

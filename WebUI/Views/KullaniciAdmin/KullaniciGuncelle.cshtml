@@ -28,6 +28,18 @@
                 <br />
                 @Html.Label("Departman")
                 <br />
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Aktif" id="gridRadios1" value=true checked>
+                    <label class="form-check-label">
+                        Aktif
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Aktif" id="gridRadios1" value=false checked>
+                    <label class="form-check-label">
+                        Aktif Değil
+                    </label>
+                </div>
                 @await Component.InvokeAsync("DepartmanList")
                 <br />
                 <button class="btn btn-info mt-4">Güncelle</button>

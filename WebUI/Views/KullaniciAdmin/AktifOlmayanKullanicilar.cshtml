@@ -2,7 +2,7 @@
 @model List<KullaniciDTO>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "AktifOlmayanKullanicilar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,7 +17,6 @@
                 <th scope="col" class="sort" data-sort="completion">Gsm</th>
                 <th scope="col" class="sort" data-sort="completion">Görev</th>
                 <th scope="col" class="sort" data-sort="completion">Departmanı</th>
-                <th scope="col" class="sort" data-sort="completion">Sil</th>
                 <th scope="col" class="sort" data-sort="completion">Güncelle</th>
             </tr>
         </thead>
@@ -51,9 +50,6 @@
                         @item.DepartmanAdı
                     </td>
                     <td>
-                        <a href="/KullaniciAdmin/KullaniciSil/@item.KullaniciId" class="btn btn-primary">Sil</a>
-                    </td>
-                    <td>
                         <a href="/KullaniciAdmin/KullaniciGuncelle/@item.KullaniciId" class="btn btn-primary">Güncelle</a>
                     </td>
                 </tr>
@@ -61,6 +57,4 @@
 
         </tbody>
     </table>
-    <a href="/KullaniciAdmin/KullaniciEkle" class="btn btn-primary">Kullanıcı Ekle</a>
-    <a href="/KullaniciAdmin/AktifOlmayanKullanicilar" class="btn btn-primary">Aktif Olmayan Kullanicilari Listele</a>
 </div>

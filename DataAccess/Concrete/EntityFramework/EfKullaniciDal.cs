@@ -12,6 +12,19 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfKullaniciDal : EfEntityRepositoryBase<Kullanici, OnlineMasaRezervasyonContext>, IKullaniciDal
     {
+        public List<KullaniciDTO> GetAllByInactive()
+        {
+            using (OnlineMasaRezervasyonContext context = new OnlineMasaRezervasyonContext())
+            {
+                var result = from k in context.Kullanicilar
+                             join d in context.Departmanlar
+                             on k.DepartmanId equals d.DepartmanId
+                             where k.Aktif == false
+                             select new KullaniciDTO { KullaniciId = k.KullaniciId, Ad = k.Ad, Soyad = k.Soyad, Eposta = k.Eposta, Gsm = k.Gsm, Gorev = k.Gorev, DepartmanAdı = d.DepartmanAdi };
+                return result.ToList();
+            }
+        }
+
         public List<KullaniciDTO> GetKullaniciDto()
         {
             using (OnlineMasaRezervasyonContext context = new OnlineMasaRezervasyonContext())

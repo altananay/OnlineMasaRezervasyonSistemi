@@ -12,5 +12,6 @@ namespace DataAccess.Abstract
     public interface IKullaniciDal : IEntityRepository<Kullanici>
     {
         List<KullaniciDTO> GetKullaniciDto();
+        List<KullaniciDTO> GetAllByInactive();
     }
 }

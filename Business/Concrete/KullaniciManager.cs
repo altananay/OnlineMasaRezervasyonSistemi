@@ -34,6 +34,11 @@ namespace Business.Concrete
             return _kullaniciDal.GetAll(k => k.Aktif == true);
         }
 
+        public List<KullaniciDTO> GetAllByInactive()
+        {
+            return _kullaniciDal.GetAllByInactive();
+        }
+
         public Kullanici GetByEmail(string email)
         {
             return _kullaniciDal.Get(k => k.Eposta == email);
