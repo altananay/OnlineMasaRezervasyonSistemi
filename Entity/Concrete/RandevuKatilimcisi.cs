@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Entity.Concrete
 {
-    public class MasaKatilimcisi : IEntity
+    public class RandevuKatilimcisi : IEntity
     {
+        public int RandevuKatilimciId { get; set; }
         public int KullaniciId { get; set; }
         public int RandevuId { get; set; }
+        public bool Aktif { get; set; }
     }
 }

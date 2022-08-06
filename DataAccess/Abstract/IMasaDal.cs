@@ -12,5 +12,7 @@ namespace DataAccess.Abstract
     public interface IMasaDal : IEntityRepository<Masa> 
     {
         List<MasaDTO> GetMasaDto();
+        List<MasaDTO> GetInactiveMasaDto();
+
     }
 }

@@ -11,5 +11,6 @@ namespace Business.Abstract
     public interface IKullaniciService : IGenericService<Kullanici>
     {
         List<KullaniciDTO> GetKullaniciDto();
+        Kullanici GetByEmail(string email);
     }
 }

@@ -16,5 +16,7 @@ namespace Entity.Concrete
         public string Gsm { get; set; }
         public string Gorev { get; set; }
         public int DepartmanId { get; set; }
+        public int YetkiId { get; set; }
+        public bool Aktif { get; set; }
     }
 }

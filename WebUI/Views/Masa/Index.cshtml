@@ -12,13 +12,12 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col" class="sort" data-sort="name">#</th>
+                <th scope="col" class="sort" data-sort="budget">Ofis</th>
                 <th scope="col" class="sort" data-sort="budget">Masa Adı</th>
                 <th scope="col" class="sort" data-sort="status">Masa Kodu</th>
-                <th scope="col">Users</th>
-                <th scope="col" class="sort" data-sort="completion">Aktif</th>
                 <th scope="col">Katılımcı Sayısı</th>
                 <th scope="col">Sil</th>
-                <th scope="col">Düzenle</th>
+                <th scope="col">Güncelle</th>
             </tr>
         </thead>
         <tbody class="list">
@@ -42,16 +41,13 @@
                         @item.MasaKodu
                     </td>
                     <td>
-                        @item.Aktif
-                    </td>
-                    <td>
                         @item.KatilimciSayisi
                     </td>
                     <td>
                         <a href="/Masa/MasaSil/@item.MasaId" class="btn btn-primary">Sil</a>
                     </td>
                     <td>
-                        <a href="/Masa/MasaGüncelle/@item.MasaId" class="btn btn-primary">Güncelle</a>
+                        <a href="/Masa/MasaGuncelle/@item.MasaId" class="btn btn-primary">Güncelle</a>
                     </td>
                 </tr>
             }
@@ -59,4 +55,5 @@
         </tbody>
     </table>
     <a href="/Masa/MasaEkle" class="btn btn-primary">Masa Ekle</a>
+    <a href="/Masa/AktifOlmayanMasalar" class="btn btn-primary">Aktif Olmayan Masaları Listele</a>
 </div>

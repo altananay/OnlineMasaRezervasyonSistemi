@@ -1,7 +1,7 @@
 ﻿@using Entity.Concrete
 @model List<Ofis>
 
-<select class="form-select" name="OfisId">
+<select class="form-control" name="OfisId" id="Ofis">
     @foreach (var item in Model)
     {
         <option value="@item.OfisId">@item.OfisAdi</option>

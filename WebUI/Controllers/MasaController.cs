@@ -1,6 +1,8 @@
 ﻿using Business.Concrete;
+using Business.ValidationRules;
 using DataAccess.Concrete.EntityFramework;
 using Entity.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
@@ -8,17 +10,24 @@ namespace WebUI.Controllers
     public class MasaController : Controller
     {
         MasaManager masaManager = new MasaManager(new EfMasaDal());
-
+        MasaValidator masaValidator = new MasaValidator();
         public IActionResult Index()
         {
             var values = masaManager.GetMasaDto();
             return View(values);
         }
 
+        public List<Masa> GetByOfisId(int id)
+        {
+            var values = masaManager.GetByOfisId(id);
+            return values;
+        }
+
         public IActionResult MasaSil(int id)
         {
             var values = masaManager.GetById(id);
-            masaManager.Delete(values);
+            values.Aktif = false;
+            masaManager.Update(values);
             return RedirectToAction("Index");
         }
 
@@ -31,21 +40,51 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult MasaEkle(Masa masa)
         {
-            masaManager.Add(masa);
-            return RedirectToAction("Index");
+            ValidationResult validationResult = masaValidator.Validate(masa);
+            if (validationResult.IsValid)
+            {
+                masaManager.Add(masa);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
 
-        public IActionResult MasaGüncelle(int id)
+        public IActionResult MasaGuncelle(int id)
         {
             var values = masaManager.GetById(id);
             return View(values);
         }
 
         [HttpPost]
-        public IActionResult MasaGüncelle(Masa masa)
+        public IActionResult MasaGuncelle(Masa masa)
         {
-            masaManager.Update(masa);
-            return RedirectToAction("Index");
+            ValidationResult validationResult = masaValidator.Validate(masa);
+            if (validationResult.IsValid)
+            {
+                masaManager.Update(masa);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
+        }
+
+        public IActionResult AktifOlmayanMasalar()
+        {
+            var values = masaManager.GetInactiveMasaDto();
+            return View(values);
         }
     }
 }

@@ -12,6 +12,19 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfMasaDal : EfEntityRepositoryBase<Masa, OnlineMasaRezervasyonContext>, IMasaDal
     {
+        public List<MasaDTO> GetInactiveMasaDto()
+        {
+            using (OnlineMasaRezervasyonContext context = new OnlineMasaRezervasyonContext())
+            {
+                var result = from m in context.Masalar
+                             join o in context.Ofisler
+                             on m.OfisId equals o.OfisId
+                             where m.Aktif == false
+                             select new MasaDTO { MasaId = m.MasaId, OfisAdi = o.OfisAdi, MasaAdi = m.MasaAdi, MasaKodu = m.MasaKodu, Aktif = m.Aktif, KatilimciSayisi = m.KatilimciSayisi };
+                return result.ToList();
+            }
+        }
+
         public List<MasaDTO> GetMasaDto()
         {
             using (OnlineMasaRezervasyonContext context = new OnlineMasaRezervasyonContext())
@@ -19,6 +32,7 @@ namespace DataAccess.Concrete.EntityFramework
                 var result = from m in context.Masalar
                              join o in context.Ofisler
                              on m.OfisId equals o.OfisId
+                             where m.Aktif == true
                              select new MasaDTO { MasaId = m.MasaId, OfisAdi = o.OfisAdi, MasaAdi = m.MasaAdi, MasaKodu = m.MasaKodu, Aktif = m.Aktif, KatilimciSayisi = m.KatilimciSayisi };
                 return result.ToList();
             }

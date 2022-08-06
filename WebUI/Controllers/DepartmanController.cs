@@ -1,6 +1,8 @@
 ﻿using Business.Concrete;
+using Business.ValidationRules;
 using DataAccess.Concrete.EntityFramework;
 using Entity.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
@@ -8,7 +10,7 @@ namespace WebUI.Controllers
     public class DepartmanController : Controller
     {
         DepartmanManager departmanManager = new DepartmanManager(new EfDepartmanDal());
-
+        DepartmanValidator departmanValidator = new DepartmanValidator();
         public IActionResult Index()
         {
             var values = departmanManager.GetAll();
@@ -18,7 +20,8 @@ namespace WebUI.Controllers
         public IActionResult DepartmanSil(int id)
         {
             var values = departmanManager.GetById(id);
-            departmanManager.Delete(values);
+            values.Aktif = false;
+            departmanManager.Update(values);
             return RedirectToAction("Index");
         }
 
@@ -31,11 +34,23 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult DepartmanEkle(Departman departman)
         {
-            departmanManager.Add(departman);
-            return RedirectToAction("Index");
+            ValidationResult results = departmanValidator.Validate(departman);
+            if (results.IsValid)
+            {
+                departmanManager.Add(departman);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
 
-        public IActionResult DepartmanGuncelle(int id)
+        public IActionResult DepartmanGüncelle(int id)
         {
             var values = departmanManager.GetById(id);
             return View(values);
@@ -46,6 +61,12 @@ namespace WebUI.Controllers
         {
             departmanManager.Update(departman);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult AktifOlmayanDepartmanlar()
+        {
+            var values = departmanManager.GetInactive();
+            return View(values);
         }
     }
 }

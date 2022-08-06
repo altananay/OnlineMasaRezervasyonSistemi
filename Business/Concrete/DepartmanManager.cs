@@ -30,12 +30,17 @@ namespace Business.Concrete
 
         public List<Departman> GetAll()
         {
-            return _departmanDal.GetAll();
+            return _departmanDal.GetAll(d => d.Aktif == true);
         }
 
         public Departman GetById(int departmanId)
         {
             return _departmanDal.Get(d => d.DepartmanId == departmanId);
+        }
+
+        public List<Departman> GetInactive()
+        {
+            return _departmanDal.GetAll(d => d.Aktif == false);
         }
 
         public void Update(Departman entity)

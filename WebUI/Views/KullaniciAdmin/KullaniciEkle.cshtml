@@ -12,12 +12,15 @@
             {
                 @Html.Label("Ad")
                 @Html.TextBoxFor(x => x.Ad, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Ad, "", new { @class = "text-danger" })
                 <br />
                 @Html.Label("Soyad")
                 @Html.TextBoxFor(x => x.Soyad, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Soyad, "", new { @class = "text-danger" })
                 <br />
                 @Html.Label("Eposta")
                 @Html.TextBoxFor(x => x.Eposta, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Eposta, "", new { @class = "text-danger" })
                 <br />
                 @Html.Label("Gsm")
                 @Html.TextBoxFor(x => x.Gsm, new { @class = "form-control" })
@@ -28,6 +31,7 @@
                 @Html.Label("Departman")
                 <br />
                 @await Component.InvokeAsync("DepartmanList")
+                @Html.ValidationMessageFor(m => m.DepartmanId, "", new { @class = "text-danger" })
                 <br />
                 <button class="btn btn-info mt-4">Ekle</button>
             }

@@ -1,0 +1,7 @@
+﻿@using Entity.Concrete
+@model List<Kullanici>
+
+@foreach (var item in Model)
+{
+    <option value="@item.KullaniciId">@item.Eposta</option>
+}

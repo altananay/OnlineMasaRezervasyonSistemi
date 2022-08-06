@@ -31,12 +31,27 @@ namespace Business.Concrete
 
         public List<Masa> GetAll()
         {
-            return _masaDal.GetAll();
+            return _masaDal.GetAll(m => m.Aktif == true);
         }
 
         public Masa GetById(int id)
         {
             return _masaDal.Get(m => m.MasaId == id);
+        }
+
+        public List<Masa> GetByOfisId(int id)
+        {
+            return _masaDal.GetAll(m => m.OfisId == id);
+        }
+
+        public List<Masa> GetInactive()
+        {
+            return _masaDal.GetAll(m => m.Aktif == false);
+        }
+
+        public List<MasaDTO> GetInactiveMasaDto()
+        {
+            return _masaDal.GetInactiveMasaDto();
         }
 
         public List<MasaDTO> GetMasaDto()

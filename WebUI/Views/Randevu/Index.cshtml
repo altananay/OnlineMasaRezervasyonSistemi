@@ -1,0 +1,171 @@
+﻿@model Entity.Concrete.RandevuKayit
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@using (Html.BeginForm("RandevuEkle", "Randevu", FormMethod.Post))
+{*@
+<div class="row mt-4">
+    <div class="col-6">
+        <label class="form-label">Ofis</label>
+        @await Component.InvokeAsync("OfisList")
+    </div>
+    <div class="col-6">
+        <label class="form-label">Masalar</label>
+        <br />
+        <select id="masa" class="form-control">
+        </select>
+        @Html.ValidationMessageFor(rk => rk.MasaId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div>
+    <label class="control-label">Masa Katılımcıları</label>
+    <select class="form-control" multiple="multiple" id="katilimcilar">
+        @await Component.InvokeAsync("EmailList")
+    </select>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col-6">
+        <label class="form-label">Başlangıç Tarihi</label>
+        <input type="date" class="form-control" id="baslangicTarihi">
+        @Html.ValidationMessageFor(rk => rk.BaslangicTarihi, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-6">
+        <label for="inputState" class="form-label">Başlangıç Saati</label>
+        <input type="time" class="form-control" id="baslangicSaati">
+        @Html.ValidationMessageFor(rk => rk.BaslangicSaati, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-6">
+        <label class="form-label">Bitiş Tarihi</label>
+        <input type="date" class="form-control" id="bitisTarihi">
+        @Html.ValidationMessageFor(rk => rk.BitisTarihi, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-6">
+        <label for="inputState" class="form-label">Bitiş Saati</label>
+        <input type="time" class="form-control" id="bitisSaati">
+        @Html.ValidationMessageFor(rk => rk.BitisSaati, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col">
+        <label for="inputState" class="form-label">Açıklama</label>
+        <textarea class="form-control" id="description"></textarea>
+    </div>
+</div>
+<div class="col-12">
+    <button type="submit" class="btn btn-primary mt-4" id="send">Randevu Ekle</button>
+</div>
+@*}*@
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#katilimcilar').select2({
+            placeholder: "Masa katılımcılarını seçin",
+            allowClear: true
+        });
+
+    })
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#Ofis").change(function() {
+            let id = $("#Ofis Option:Selected").val()
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetByOfisId", "Masa")",
+                data: { id: id },
+                success: successFunction,
+                error: errorFunction
+            });
+
+            function successFunction(data) {
+                let select = $("#masa")
+                select.empty();
+                $.each(data, function(index, itemData) {
+                    select.append($("<option />", {
+                        value: itemData.masaId,
+                        text: itemData.masaAdi
+                    }))
+                })
+            }
+
+            function errorFunction(data) {
+
+            }
+        })
+    })
+</script>
+
+@*
+
+Ajax ile veri tabanına insert işlemi.
+Fluent validation çalışıyor fakat ajax sayfanın yenilenmesine izin vermediği için
+validation hata mesajlarını ekrana yazdıramıyorum. O yüzden ajax'ı devre dışı bırakıp
+form ile insert yöntemine geçtim
+*@
+
+<script>
+    let selectedIds = [];
+    $(document).ready(function() {
+
+        $("#katilimcilar").change(function() {
+
+            $(this).children("option:selected").each(function() {
+                let result = $(this).val()
+                let control = 0;
+                for (let i = 0; i < selectedIds.length; i++) {
+                    if (selectedIds[i] == result) {
+                        control++
+                    }
+                }
+                if (control == 0) {
+                    selectedIds.push(parseInt($(this).val()))
+                }
+            })
+
+            if ($(this).children("option:selected").length == 0) {
+                selectedIds = []
+            }
+
+        })
+
+        $("#send").click(function() {
+            let values = {
+                MasaId: $("#masa Option:Selected").val(),
+                BaslangicTarihi: $("#baslangicTarihi").val(),
+                BaslangicSaati: $("#baslangicSaati").val(),
+                BitisTarihi: $("#bitisTarihi").val(),
+                BitisSaati: $("#bitisSaati").val(),
+                Aciklama: $("#description").val()
+            }
+            console.log(selectedIds)
+
+            $.ajax({
+                type: "Post",
+                url: "@Url.Action("RandevuEkle", "Randevu")",
+                data: { randevuKayit: values, ids: selectedIds },
+                success: function() {
+                    alert("basarili")
+                },
+                failure: function(response) {
+                    alert(response.text)
+                },
+                error: function(response) {
+                    alert(response.text)
+                }
+            })
+        })
+
+    })
+</script>

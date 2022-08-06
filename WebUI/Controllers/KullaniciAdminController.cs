@@ -1,6 +1,8 @@
 ﻿using Business.Concrete;
+using Business.ValidationRules;
 using DataAccess.Concrete.EntityFramework;
 using Entity.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
@@ -8,7 +10,7 @@ namespace WebUI.Controllers
     public class KullaniciAdminController : Controller
     {
         KullaniciManager kullaniciManager = new KullaniciManager(new EfKullaniciDal());
-
+        KullaniciValidator kullaniciValidator = new KullaniciValidator();
         public IActionResult Index()
         {
             var values = kullaniciManager.GetKullaniciDto();
@@ -18,7 +20,8 @@ namespace WebUI.Controllers
         public IActionResult KullaniciSil(int id)
         {
             var values = kullaniciManager.GetById(id);
-            kullaniciManager.Delete(values);
+            values.Aktif = false;
+            kullaniciManager.Update(values);
             return RedirectToAction("Index");
         }
 
@@ -31,8 +34,20 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult KullaniciEkle(Kullanici kullanici)
         {
-            kullaniciManager.Add(kullanici);
-            return RedirectToAction("Index");
+            ValidationResult validationResult = kullaniciValidator.Validate(kullanici);
+            if (validationResult.IsValid)
+            {
+                kullaniciManager.Add(kullanici);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
 
         public IActionResult KullaniciGuncelle(int id)
@@ -44,8 +59,20 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult KullaniciGuncelle(Kullanici kullanici)
         {
-            kullaniciManager.Update(kullanici);
-            return RedirectToAction("Index");
+            ValidationResult validationResult = kullaniciValidator.Validate(kullanici);
+            if (validationResult.IsValid)
+            {
+                kullaniciManager.Update(kullanici);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
     }
 }

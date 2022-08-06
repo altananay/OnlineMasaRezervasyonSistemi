@@ -13,7 +13,9 @@ namespace Entity.Concrete
         public int KullaniciId { get; set; }
         public int MasaId { get; set; }
         public DateTime BaslangicTarihi { get; set; }
-        public DateTime BitisSaati { get; set; }
+        public TimeSpan BaslangicSaati { get; set; }
+        public DateTime BitisTarihi { get; set; }
+        public TimeSpan BitisSaati { get; set; }
         public int DurumId { get; set; }
         public string Aciklama { get; set; }
         public DateTime KayitTarihi { get; set; }

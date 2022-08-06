@@ -9,6 +9,7 @@
 {
     @Html.Label("Departman Adı")
     @Html.TextBoxFor(x => x.DepartmanAdi, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.DepartmanAdi, "", new { @class = "text-danger" })
     <br />
     <button class="btn btn-info">Ekle</button>
 }

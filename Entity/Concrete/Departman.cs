@@ -11,5 +11,6 @@ namespace Entity.Concrete
     {
         public int DepartmanId { get; set; }
         public string? DepartmanAdi { get; set; }
+        public bool Aktif { get; set; }
     }
 }

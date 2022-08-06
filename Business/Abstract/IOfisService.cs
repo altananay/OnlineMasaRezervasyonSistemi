@@ -9,5 +9,6 @@ namespace Business.Abstract
 {
     public interface IOfisService : IGenericService<Ofis>
     {
+        List<Ofis> ListInactive();
     }
 }

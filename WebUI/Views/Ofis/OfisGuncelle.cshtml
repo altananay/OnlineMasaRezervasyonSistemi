@@ -1,0 +1,30 @@
+﻿@model Entity.Concrete.Ofis
+
+@{
+    ViewData["Title"] = "OfisGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("OfisGuncelle", "Ofis", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.OfisId)
+    @Html.Label("Ofis Adı")
+    @Html.TextBoxFor(x => x.OfisAdi, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.OfisAdi, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Aktiflik durumu")
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="Aktif" id="gridRadios1" value=true checked>
+        <label class="form-check-label">
+            Aktif
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="Aktif" id="gridRadios1" value=false checked>
+        <label class="form-check-label">
+            Aktif Değil
+        </label>
+    </div>
+    <br />
+    <button class="btn btn-info">Güncelle</button>
+}

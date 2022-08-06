@@ -1,0 +1,52 @@
+﻿@using Entity.DTOs
+@model List<MasaDTO>
+
+@{
+    ViewData["Title"] = "AktifOlmayanMasalar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="table-responsive mt-3">
+    <table class="table align-items-center table-dark table-flush">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="sort" data-sort="name">#</th>
+                <th scope="col" class="sort" data-sort="budget">Ofis</th>
+                <th scope="col" class="sort" data-sort="budget">Masa Adı</th>
+                <th scope="col" class="sort" data-sort="status">Masa Kodu</th>
+                <th scope="col">Katılımcı Sayısı</th>
+                <th scope="col">Güncelle</th>
+            </tr>
+        </thead>
+        <tbody class="list">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">
+                        <div class="media align-items-center">
+                            <div class="media-body">
+                                <span class="name mb-0 text-sm">@item.MasaId</span>
+                            </div>
+                        </div>
+                    </th>
+                    <td>
+                        @item.OfisAdi
+                    </td>
+                    <td>
+                        @item.MasaAdi
+                    </td>
+                    <td>
+                        @item.MasaKodu
+                    </td>
+                    <td>
+                        @item.KatilimciSayisi
+                    </td>
+                    <td>
+                        <a href="/Masa/MasaGuncelle/@item.MasaId" class="btn btn-primary">Güncelle</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

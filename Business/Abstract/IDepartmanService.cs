@@ -9,5 +9,6 @@ namespace Business.Abstract
 {
     public interface IDepartmanService : IGenericService<Departman>
     {
+        List<Departman> GetInactive();
     }
 }

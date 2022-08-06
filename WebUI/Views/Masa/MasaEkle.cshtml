@@ -12,12 +12,15 @@
             {
                 @Html.Label("Ofis Adı")
                 @await Component.InvokeAsync("OfisList")
+                @Html.ValidationMessageFor(m => m.OfisId, "", new { @class = "text-danger" })
                 <br />
                 @Html.Label("Masa Adi")
                 @Html.TextBoxFor(x => x.MasaAdi, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.MasaAdi, "", new { @class = "text-danger" })
                 <br />
                 @Html.Label("Masa Kodu")
                 @Html.TextBoxFor(x => x.MasaKodu, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.MasaKodu, "", new { @class = "text-danger" })
                 <br />
                 @Html.Label("Aktif")
                 <div class="form-check">

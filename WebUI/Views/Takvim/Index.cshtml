@@ -1,0 +1,214 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="container">
+
+    <div class="calendar-base">
+
+        <div class="year">2017</div>
+        <!-- year -->
+
+        <div class="triangle-left"></div>
+        <!--triangle -->
+        <div class="triangle-right"></div>
+        <!--  triangle -->
+
+        <div class="months">
+            <span class="month-hover">Jan</span>
+            <span class="month-hover">Feb</span>
+            <span class="month-hover">Mar</span>
+            <strong class="month-color">Apr</strong>
+            <span class="month-hover">May</span>
+            <span class="month-hover">Jun</span>
+            <span class="month-hover">July</span>
+            <span class="month-hover">Aug</span>
+            <span class="month-hover">Sep</span>
+            <span class="month-hover">Oct</span>
+            <span class="month-hover">Nov</span>
+            <span class="month-hover">Dec</span>
+        </div><!-- months -->
+        <hr class="month-line" />
+
+        <div class="days">SUN MON TUE WED THU FRI SAT</div>
+        <!-- days -->
+
+        <div class="num-dates">
+
+            <div class="first-week"><span class="grey">26 27 28 29 30 31</span> 01</div>
+            <!-- first week -->
+            <div class="second-week">02 03 04 05 06 07 08</div>
+            <!-- week -->
+            <div class="third-week"> 09 10 11 12 13 14 15</div>
+            <!-- week -->
+            <div class="fourth-week"> 16 17 18 19 20 21 22</div>
+            <!-- week -->
+            <div class="fifth-week"> 23 24 25 26 <strong class="white">27</strong> 28 29</div>
+            <!-- week -->
+            <div class="sixth-week"> 30 <span class="grey">01 02 03 04 05 06</span></div>
+            <!-- week -->
+        </div>
+        <!-- num-dates -->
+        <div class="event-indicator"></div>
+        <!-- event-indicator -->
+        <div class="active-day"></div>
+        <!-- active-day -->
+        <div class="event-indicator two"></div>
+        <!-- event-indicator -->
+
+    </div>
+    <!-- calendar-base -->
+    <div class="calendar-left">
+
+        <div class="hamburger">
+            <div class="burger-line"></div>
+            <!-- burger-line -->
+            <div class="burger-line"></div>
+            <!-- burger-line -->
+            <div class="burger-line"></div>
+            <!-- burger-line -->
+        </div>
+        <!-- hamburger -->
+
+
+        <div class="num-date">27</div>
+        <!--num-date -->
+        <div class="day">THURSDAY</div>
+        <!--day -->
+        <div class="current-events">
+            Current Events
+            <br />
+            <ul>
+                <li>Day 09 Daily CSS Image</li>
+            </ul>
+            <span class="posts">See post events</span>
+        </div>
+        <!--current-events -->
+
+        <div class="create-event">Create an Event</div>
+        <!-- create-event -->
+        <hr class="event-line" />
+        <div class="add-event"><span class="add">+</span></div>
+        <!-- add-event -->
+
+    </div>
+    <!-- calendar-left -->
+
+</div>*@
+<!-- container -->
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="~/takvim/fonts/icomoon/style.css">
+
+<link href='~/takvim/fullcalendar/packages/core/main.css' rel='stylesheet' />
+<link href='~/takvim/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+
+
+<!-- Style -->
+<link rel="stylesheet" href="~/takvim/css/style.css">
+
+
+
+<div id='calendar-container' style="margin-left: 250px; margin-top: 70px">
+    <div id='calendar'></div>
+</div>
+
+<script src="~/takvim/js/jquery-3.3.1.min.js"></script>
+<script src="~/takvim/js/popper.min.js"></script>
+
+<script src='~/takvim/fullcalendar/packages/core/main.js'></script>
+<script src='~/takvim/fullcalendar/packages/interaction/main.js'></script>
+<script src='~/takvim/fullcalendar/packages/daygrid/main.js'></script>
+<script src='~/takvim/fullcalendar/packages/timegrid/main.js'></script>
+<script src='~/takvim/fullcalendar/packages/list/main.js'></script>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+            height: 'parent',
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            defaultView: 'dayGridMonth',
+            defaultDate: '2020-02-12',
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2020-02-01',
+                },
+                {
+                    title: 'Long Event',
+                    start: '2020-02-07',
+                    end: '2020-02-10'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2020-02-09T16:00:00'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2020-02-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2020-02-11',
+                    end: '2020-02-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2020-02-12T10:30:00',
+                    end: '2020-02-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2020-02-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2020-02-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2020-02-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2020-02-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2020-02-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2020-02-28'
+                }
+            ]
+        });
+
+        calendar.render();
+    });
+
+</script>
+
+<script src="~/takvim/js/main.js"></script>

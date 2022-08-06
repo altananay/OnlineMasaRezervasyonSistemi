@@ -30,12 +30,17 @@ namespace Business.Concrete
 
         public List<Ofis> GetAll()
         {
-            return _ofisDal.GetAll();
+            return _ofisDal.GetAll(o => o.Aktif == true);
         }
 
         public Ofis GetById(int id)
         {
             return _ofisDal.Get(o => o.OfisId == id);
+        }
+
+        public List<Ofis> ListInactive()
+        {
+            return _ofisDal.GetAll(o => o.Aktif == false);
         }
 
         public void Update(Ofis entity)

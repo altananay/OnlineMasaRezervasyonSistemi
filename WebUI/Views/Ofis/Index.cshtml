@@ -1,0 +1,46 @@
+﻿@using Entity.Concrete
+@model List<Ofis>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="table-responsive pb-6">
+    <table class="table align-items-center table-flush">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col" class="sort" data-sort="name">#</th>
+                <th scope="col" class="sort" data-sort="budget">Ofis Adı</th>
+                <th scope="col" class="sort" data-sort="status">Sil</th>
+                <th scope="col" class="sort" data-sort="status">Güncelle</th>
+            </tr>
+        </thead>
+        <tbody class="list">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">
+                        <div class="media align-items-center">
+                            <div class="media-body">
+                                <span class="name mb-0 text-sm">@item.OfisId</span>
+                            </div>
+                        </div>
+                    </th>
+                    <td>
+                        @item.OfisAdi
+                    </td>
+                    <td>
+                        <a href="/Ofis/OfisSil/@item.OfisId" class="btn btn-primary">Sil</a>
+                    </td>
+                    <td>
+                        <a href="/Ofis/OfisGuncelle/@item.OfisId" class="btn btn-primary">Güncelle</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <a href="/Ofis/OfisEkle" class="btn btn-primary">Ofis Ekle</a>
+    <a href="/Ofis/AktifOlmayanOfisler" class="btn btn-primary">Aktif Olmayan Ofisleri Listele</a>
+</div>
