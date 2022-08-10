@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Business.Concrete;
+using Business.ValidationRules;
+using DataAccess.Concrete.EntityFramework;
+using Entity.Concrete;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebUI.Models;
 
@@ -6,6 +12,9 @@ namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        KullaniciManager kullaniciManager = new KullaniciManager(new EfKullaniciDal());
+        LoginValidator loginValidator = new LoginValidator();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -18,9 +27,33 @@ namespace WebUI.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Login(string Eposta)
         {
-            return View();
+            Kullanici kullanici = new Kullanici();
+            kullanici.Eposta = Eposta;
+            ValidationResult results = loginValidator.Validate(kullanici);
+            if (results.IsValid)
+            {
+                var values = kullaniciManager.GetByEmail(Eposta);
+                kullanici = values;
+                if (values != null)
+                {
+                    return RedirectToAction("Index", "Profile", kullanici);
+                }
+                else
+                {
+                    return RedirectToAction("KullaniciEkle", "Kullanici");
+                }
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Entity.Concrete.Kullanici
+
+@{
     Layout = null;
 }
 
@@ -27,20 +29,24 @@
         </div>
     </nav>
     <div class="container">
+        <form action="/Home/Login/" method="post">
+           
 
-        <div class="row justify-content-center mt-5">
-            <div class="col-6 mt-6">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <div class="row justify-content-center mt-5">
+                <div class="col-6 mt-6">
+                    <div class="mb-3">
+                        <label class="form-label">Email address</label>
+                         @Html.TextBoxFor(k => k.Eposta, new {@class = "form-control" })
+                         @Html.ValidationMessageFor(k => k.Eposta, "", new {@class = "text-danger" })
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <a href="@Url.Action("Index","Anasayfa")" class="btn btn-primary">Giriş Yap</a>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </body>
 </html>

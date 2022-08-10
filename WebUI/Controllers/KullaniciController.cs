@@ -28,6 +28,8 @@ namespace WebUI.Controllers
             kullanici.YetkiId = 2;
             ValidationResult results = kullaniciValidator.Validate(kullanici);
 
+            
+
             if (results.IsValid)
             {
 

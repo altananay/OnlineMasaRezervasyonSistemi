@@ -1,0 +1,37 @@
+﻿@model Entity.Concrete.Kullanici
+
+@{
+    ViewData["Title"] = "KullaniciGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("KullaniciGuncelle", "Profile", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.KullaniciId)
+    @Html.Label("Adı")
+    @Html.TextBoxFor(x => x.Ad, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Ad, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Soyad")
+    @Html.TextBoxFor(x => x.Soyad, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Soyad, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Eposta")
+    @Html.TextBoxFor(x => x.Eposta, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Eposta, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Gorev")
+    @Html.TextBoxFor(x => x.Gorev, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Gorev, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Gsm")
+    @Html.TextBoxFor(x => x.Gsm, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Gsm, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Departman")
+    <br />
+    @await Component.InvokeAsync("DepartmanList")
+    <br />
+    @Html.ValidationMessageFor(x => x.DepartmanId, "", new { @class = "text-danger" })
+    <button class="btn btn-success mt-3">Güncelle</button>
+}
