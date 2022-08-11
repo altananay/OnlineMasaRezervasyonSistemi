@@ -34,6 +34,16 @@ namespace Business.Concrete
             return _randevuKayitDal.GetAll();
         }
 
+        public List<RandevuKayit> GetAllById(int id)
+        {
+            return _randevuKayitDal.GetAll(rk => rk.KullaniciId == id);
+        }
+
+        public List<RandevuDTO> GetAllRandevuDtoById(int id)
+        {
+            return _randevuKayitDal.GetAllRandevuDtoById(id);
+        }
+
         public RandevuKayit GetById(int id)
         {
             return _randevuKayitDal.Get(rk => rk.RandevuId == id);

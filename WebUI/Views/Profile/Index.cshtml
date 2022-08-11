@@ -1,4 +1,4 @@
-﻿@model Entity.Concrete.Kullanici
+﻿@model Entity.DTOs.KullaniciDTO
 
 @{
     ViewData["Title"] = "Index";
@@ -71,7 +71,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-last-name">Departmanı: @Model.DepartmanId</label>
+                                    <label class="form-control-label" for="input-last-name">Departmanı: @Model.DepartmanAdı</label>
                                 </div>
                             </div>
                         </div>
@@ -82,23 +82,11 @@
     </div>
 </div>
 
+@await Component.InvokeAsync("KullaniciRandevuList", @Model.KullaniciId)
 
 <div style="margin-top: 70px">
     <div id='calendar'></div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <script src="~/takvim/js/jquery-3.3.1.min.js"></script>

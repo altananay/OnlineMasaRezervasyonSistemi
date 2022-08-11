@@ -1,0 +1,87 @@
+﻿@using Entity.DTOs
+@model List<RandevuDTO>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+<div class="table-responsive mt-3">
+    <table class="table align-items-center table-dark table-flush">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="sort" data-sort="budget">Ad Soyad</th>
+                <th scope="col" class="sort" data-sort="budget">Ofis Adı</th>
+                <th scope="col" class="sort" data-sort="status">Masa Adı</th>
+                <th scope="col" class="sort" data-sort="status">Baslangic Tarihi</th>
+                <th scope="col" class="sort" data-sort="status">Baslangic Saati</th>
+                <th scope="col" class="sort" data-sort="status">Bitis Tarihi</th>
+                <th scope="col" class="sort" data-sort="status">Bitis Saati</th>
+                <th scope="col">Durum</th>
+                <th scope="col">Açıklama</th>
+                <th scope="col">Durumlar</th>
+                <th scope="col">Güncelle</th>
+            </tr>
+        </thead>
+        <tbody class="list">
+            @foreach (var item in Model)
+            {
+                <form action="/Profile/RandevuDurumGuncelle/" method="post">
+                    <input type="hidden" name="RandevuId" value="@item.RandevuId">
+                    <tr>
+                        <th scope="row">
+                            <div class="media align-items-center">
+                                <div class="media-body">
+                                    <span class="name mb-0 text-sm">@item.KullaniciAd @item.KullaniciSoyad</span>
+                                </div>
+                            </div>
+                        </th>
+                        <td>
+                                @item.OfisAdi
+                        </td>
+                        <td>
+                                @item.MasaAdi
+                        </td>
+                        <td>
+                                @item.BaslangicTarihi
+                        </td>
+                        <td>
+                                @item.BaslangicSaati
+                        </td>
+                        <td>
+                                @item.BitisTarihi
+                        </td>
+                        <td>
+                                @item.BitisSaati
+                        </td>
+                        <td>
+                                @item.Durum
+                        </td>
+                        <td>
+                                @item.Aciklama
+                        </td>
+                        <td>
+                                @await Component.InvokeAsync("DurumList")
+                        </td>
+                        <td>
+                                @*a href="/Profile/RandevuDurumGuncelle/@item.RandevuId/" class="btn btn-primary">Güncelle</a>*@
+                            <button class="btn btn-primary">Güncelle</button>
+                        </td>
+                    </tr>
+                </form>
+
+
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@*<script>
+    $(document).ready(function() {
+        $('[id="Durumlar"]').change(function() {
+            let id = 0
+            id = $('[id="Durumlar"] Option:Selected').val()
+        })
+    })
+</script>*@

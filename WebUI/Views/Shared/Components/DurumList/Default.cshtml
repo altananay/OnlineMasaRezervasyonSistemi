@@ -1,0 +1,9 @@
+﻿@using Entity.Concrete
+@model List<Durum>
+
+<select class="form-select" name="DurumId" id="Durumlar">
+    @foreach (var item in Model)
+    {
+        <option value="@item.DurumId">@item.Durumm</option>
+    }
+</select>

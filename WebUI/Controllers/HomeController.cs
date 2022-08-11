@@ -13,6 +13,7 @@ namespace WebUI.Controllers
     public class HomeController : Controller
     {
         KullaniciManager kullaniciManager = new KullaniciManager(new EfKullaniciDal());
+        RandevuKayitManager randevuKayitManager = new RandevuKayitManager(new EfRandevuKayitDal());
         LoginValidator loginValidator = new LoginValidator();
 
         private readonly ILogger<HomeController> _logger;
@@ -36,6 +37,18 @@ namespace WebUI.Controllers
             {
                 var values = kullaniciManager.GetByEmail(Eposta);
                 kullanici = values;
+
+                var values2 = randevuKayitManager.GetAllById(kullanici.KullaniciId);
+
+                foreach (var item in values2)
+                {
+                    if (item.BitisTarihi < DateTime.Now)
+                    {
+                        item.DurumId = 1;
+                        randevuKayitManager.Update(item);
+                    }
+                }
+
                 if (values != null)
                 {
                     return RedirectToAction("Index", "Profile", kullanici);

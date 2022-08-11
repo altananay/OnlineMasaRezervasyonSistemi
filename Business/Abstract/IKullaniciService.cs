@@ -13,5 +13,7 @@ namespace Business.Abstract
         List<KullaniciDTO> GetKullaniciDto();
         List<KullaniciDTO> GetAllByInactive();
         Kullanici GetByEmail(string email);
+
+        KullaniciDTO GetKullaniciDtoById(int id);
     }
 }

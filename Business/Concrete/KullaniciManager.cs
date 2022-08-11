@@ -53,6 +53,11 @@ namespace Business.Concrete
             return _kullaniciDal.GetKullaniciDto();
         }
 
+        public KullaniciDTO GetKullaniciDtoById(int id)
+        {
+            return _kullaniciDal.GetKullaniciDtoById(id);
+        }
+
         public void Update(Kullanici entity)
         {
             _kullaniciDal.Update(entity);

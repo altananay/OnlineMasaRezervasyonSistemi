@@ -55,8 +55,6 @@ namespace WebUI.Controllers
                     randevuKatilimcisiManager.Add(randevuKatilimcisi);
                 }
 
-
-
                 return Json(new {success = true});
             }
             else

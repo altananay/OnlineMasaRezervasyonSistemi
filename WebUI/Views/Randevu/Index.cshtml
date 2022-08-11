@@ -107,14 +107,6 @@
     })
 </script>
 
-@*
-
-Ajax ile veri tabanına insert işlemi.
-Fluent validation çalışıyor fakat ajax sayfanın yenilenmesine izin vermediği için
-validation hata mesajlarını ekrana yazdıramıyorum. O yüzden ajax'ı devre dışı bırakıp
-form ile insert yöntemine geçtim
-*@
-
 <script>
     let selectedIds = [];
     $(document).ready(function() {
@@ -156,7 +148,7 @@ form ile insert yöntemine geçtim
                 url: "@Url.Action("RandevuEkle", "Randevu")",
                 data: { randevuKayit: values, ids: selectedIds },
                 success: function() {
-                    
+
                 },
                 failure: function(response) {
                     alert(response.text)
@@ -169,3 +161,4 @@ form ile insert yöntemine geçtim
 
     })
 </script>
+

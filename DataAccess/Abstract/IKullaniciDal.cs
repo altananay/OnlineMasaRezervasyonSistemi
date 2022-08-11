@@ -13,5 +13,6 @@ namespace DataAccess.Abstract
     {
         List<KullaniciDTO> GetKullaniciDto();
         List<KullaniciDTO> GetAllByInactive();
+        KullaniciDTO GetKullaniciDtoById(int id);
     }
 }

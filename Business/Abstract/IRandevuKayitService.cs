@@ -11,5 +11,7 @@ namespace Business.Abstract
     public interface IRandevuKayitService : IGenericService<RandevuKayit>
     {
         RandevuDTO GetRandevuDto();
+        List<RandevuKayit> GetAllById(int id);
+        List<RandevuDTO> GetAllRandevuDtoById(int id);
     }
 }
