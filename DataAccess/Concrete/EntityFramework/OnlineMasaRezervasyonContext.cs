@@ -12,7 +12,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=MSI; Database=OnlineMasaRezervasyon; integrated security= true");
+            optionsBuilder.UseSqlServer("connection string");
         }
 
         public DbSet<Departman> Departmanlar { get; set; }
